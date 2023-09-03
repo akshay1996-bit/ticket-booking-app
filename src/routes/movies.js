@@ -1,10 +1,17 @@
-const express = require('express')
-const router = express.Router()
-const Movie = require('../models/movies')
+const express = require("express");
 
-router.get('/',async (req,res)=>{
-    const Movies = await Movie.findAll()
-    res.status(200).send(Movies)
-})
+const {
+  getMovieTheater,
+  getAllMovies,
+  getMovie,
+  searchMovies,
+} = require("../controllers/movieController");
 
-module.exports = router
+const router = express.Router();
+
+router.get("/_search", searchMovies);
+router.get("/:id", getMovie);
+router.get("/:name", getMovieTheater);
+router.get("/", getAllMovies);
+
+module.exports = router;
